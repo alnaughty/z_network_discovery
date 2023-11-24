@@ -1,10 +1,3 @@
-/*
- * ping_discover_network
- * Created by Andrey Ushakov
- * 
- * See LICENSE for distribution and usage details.
- */
-
 import 'dart:async';
 import 'dart:io';
 
@@ -17,6 +10,7 @@ class NetworkAddress {
   String ip;
 }
 
+// ignore: avoid_classes_with_only_static_members
 /// Pings a given subnet (xxx.xxx.xxx) on a given port using [discover] method.
 class NetworkAnalyzer {
   /// Pings a given [subnet] (xxx.xxx.xxx) on a given [port].
@@ -45,7 +39,7 @@ class NetworkAnalyzer {
         }
 
         // Check if connection timed out or we got one of predefined errors
-        if (e.osError == null || _errorCodes.contains(e.osError.errorCode)) {
+        if (e.osError == null || _errorCodes.contains(e.osError?.errorCode)) {
           yield NetworkAddress(host, false);
         } else {
           // Error 23,24: Too many open files in system
@@ -83,7 +77,7 @@ class NetworkAnalyzer {
         }
 
         // Check if connection timed out or we got one of predefined errors
-        if (e.osError == null || _errorCodes.contains(e.osError.errorCode)) {
+        if (e.osError == null || _errorCodes.contains(e.osError?.errorCode)) {
           out.sink.add(NetworkAddress(host, false));
         } else {
           // Error 23,24: Too many open files in system
